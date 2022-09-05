@@ -44,7 +44,7 @@ def login():
     return " "
 
 
-@bp.route("/signup", methods=["GET", "POST"])  # 로그인 후 메인화면
+@bp.route("/signup", methods=["GET", "POST"])  # 회원가입
 def signup():
     id = request.form['id']
     pw = request.form['pw']
@@ -69,18 +69,18 @@ def signup():
 @bp.route("/test")
 def test():
 
-    test = User.query.filter(User.id == "admin").first()
-    test1 = User.query.all()
+    # test = User.query.filter(User.id == "admin").first()
+    # test1 = User.query.all()
 
-    if test:
-        db.session.delete(test)
+    # if test:
+    #     db.session.delete(test)
 
-    for i in test1:
-        print(f'{i.Num} | {i.id}')
+    # for i in test1:
+    #     print(f'{i.Num} | {i.id}')
 
     # print(test.Num)
 
     # db.session.add(User(id="admin", pw="admin"))
     # db.session.commit()
 
-    return ""
+    return render_template("download.html")
