@@ -10,29 +10,24 @@ from models import db, User
 bp = Blueprint('index', __name__, url_prefix='/OTA')
 
 @bp.route("/main_page", methods=["GET", "POST"])  # 로그인 후 메인화면
-#@logging_time
 def mainPage():
     
     return render_template("test.html")
 
 
 @bp.route("/login_page", methods=["GET", "POST"])   # 로그인 화면
-#@logging_time
 def loginPage():
     
     return render_template("login.html")
 
     
 @bp.route("/login", methods=["GET", "POST"])   # 로그인 체크
-#@logging_time
 def login():
 
     id = request.form['id']
     pw = request.form['pw']
 
     user_list = User.query.filter(User.id == id).first()
-
-    #print(f'{id} | {pw}')
 
     if user_list:
         if pw == user_list.pw:
@@ -47,6 +42,28 @@ def login():
             })
 
     return " "
+
+
+@bp.route("/signup", methods=["GET", "POST"])  # 로그인 후 메인화면
+def signup():
+    id = request.form['id']
+    pw = request.form['pw']
+
+    user_ck = User.query.filter(User.id == id).first()
+
+    if user_ck:
+        return jsonify({
+                "result" : False
+            })
+    else:
+        db.session.add(User(id=id, pw=pw))
+        db.session.commit()
+        return jsonify({
+                "result" : True
+            })
+
+    return ""
+
 
 
 @bp.route("/test")
