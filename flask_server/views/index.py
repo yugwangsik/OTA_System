@@ -4,7 +4,8 @@ import os
 import subprocess
 #import timer_test
 import time
-from models import db, User
+from models import db, User, Download
+from datetime import datetime
 
 
 bp = Blueprint('index', __name__, url_prefix='/OTA')
@@ -64,6 +65,27 @@ def signup():
 
     return ""
 
+
+@bp.route("/getdata", methods=["GET", "POST"])  # DB 리스트
+def getdata():
+    updatelist = Download.query.all()
+
+    #db.session.add(Download(Version="fw1.2", File=b'12', Level=2, Val="xdfs"))
+#bin(19)
+    for i in updatelist:
+        print(f'{i.Version} | {i.Level} | {i.Datetime}')
+    # if user_ck:
+    #     return jsonify({
+    #             "result" : False
+    #         })
+    # else:
+    #     db.session.add(User(id=id, pw=pw))
+    #     db.session.commit()
+    #     return jsonify({
+    #             "result" : True
+    #         })
+
+    return ""
 
 
 @bp.route("/test")
