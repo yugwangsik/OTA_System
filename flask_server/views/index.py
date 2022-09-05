@@ -6,7 +6,6 @@ import subprocess
 import time
 from models import db, User
 
-#dsdasdasda
 
 bp = Blueprint('index', __name__, url_prefix='/OTA')
 
@@ -32,7 +31,6 @@ def login():
     pw = request.form['pw']
 
     user_list = User.query.filter(User.id == id).first()
-
 
     #print(f'{id} | {pw}')
 
