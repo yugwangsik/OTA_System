@@ -6,7 +6,7 @@ import subprocess
 import time
 from models import db, User
 
-
+#dsdasdasda
 
 bp = Blueprint('index', __name__, url_prefix='/OTA')
 
