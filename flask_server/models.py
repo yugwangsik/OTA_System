@@ -20,6 +20,5 @@ class Download(db.Model):
     Num = db.Column(db.Integer, autoincrement=True, primary_key=True)
     Version = db.Column(db.String, nullable=False)
     Datetime = db.Column(db.Date, nullable=False)
-    File = db.Column(LONGBLOB, nullable=False)
     Level = db.Column(db.Integer, nullable=False)
     Val = db.Column(db.String, nullable=False)

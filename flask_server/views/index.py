@@ -10,6 +10,7 @@ from datetime import datetime
 
 bp = Blueprint('index', __name__, url_prefix='/OTA')
 
+
 @bp.route("/main_page", methods=["GET", "POST"])  # 로그인 후 메인화면
 def mainPage():
     
@@ -68,27 +69,35 @@ def signup():
 
 @bp.route("/getdata", methods=["GET", "POST"])  # DB 리스트
 def getdata():
-    updatelist = Download.query.all()
 
-    #db.session.add(Download(Version="fw1.2", File=b'12', Level=2, Val="xdfs"))
-#bin(19)
-    for i in updatelist:
-        print(f'{i.Version} | {i.Level} | {i.Datetime}')
-    # if user_ck:
-    #     return jsonify({
-    #             "result" : False
-    #         })
-    # else:
-    #     db.session.add(User(id=id, pw=pw))
-    #     db.session.commit()
-    #     return jsonify({
-    #             "result" : True
-    #         })
+    rows = []
+    data = []
+    updatelist = Download.query.all()
+    
+    for row in updatelist:
+        rows.append(row.Version)
+        rows.append(row.Val)
+        data.append(rows)
+        rows = []
+
+    return jsonify({
+        "data" : data
+    })
+
+
+@bp.route("/download_page")   # 다운로드 페이지
+def download_page():
+
+    return render_template("download.html")
+
+
+@bp.route("/download")   # 다운로드 실행
+def download():
 
     return ""
 
 
-@bp.route("/test")
+@bp.route("/test")   # 테스트 공간
 def test():
 
     # test = User.query.filter(User.id == "admin").first()
@@ -105,4 +114,12 @@ def test():
     # db.session.add(User(id="admin", pw="admin"))
     # db.session.commit()
 
-    return render_template("download.html")
+    return ""
+
+@bp.route("/test2")   
+def test2():
+    for i in range(5):
+        db.session.add(Download(Version=f"fw{i}.2", Level=2, Val="xdfs"))
+
+    return ""
+
