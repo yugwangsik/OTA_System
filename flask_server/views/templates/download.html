@@ -20,7 +20,7 @@
 
         $(document).on("click",".fw_ver", function(event){
             var fw_ver = this.id
-            $ajax({
+            $.ajax({
                 url: '/OTA/download',
                 type: 'POST',
                 data: {fw: fw_ver},

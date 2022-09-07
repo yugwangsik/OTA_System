@@ -14,7 +14,7 @@ bp = Blueprint('index', __name__, url_prefix='/OTA')
 @bp.route("/main_page", methods=["GET", "POST"])  # 로그인 후 메인화면
 def mainPage():
     
-    return render_template("test.html")
+    return render_template("download.html")
 
 
 @bp.route("/login_page", methods=["GET", "POST"])   # 로그인 화면
@@ -91,9 +91,13 @@ def download_page():
     return render_template("download.html")
 
 
-@bp.route("/download")   # 다운로드 실행
+@bp.route("/download", methods=["GET", "POST"])   # 다운로드 실행
 def download():
 
+    fw = request.form['fw']
+    os.system(f"sshpass -p raspberry scp /home/pi/OTA_System/update_img/{fw}.PNG pi@10.0.1.64:/home/pi/upload")
+    a = request.remote_addr
+    print(a)
     return ""
 
 
